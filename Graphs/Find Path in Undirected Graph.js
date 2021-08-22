@@ -1,9 +1,22 @@
+// const edges = [
+//   ["i", "j"],
+//   ["k", "i"],
+//   ["m", "k"],
+//   ["k", "l"],
+//   ["o", "n"],
+// ];
+
 const edges = [
-  ["i", "j"],
-  ["k", "i"],
-  ["m", "k"],
-  ["k", "l"],
-  ["o", "n"],
+  [0, 7],
+  [0, 8],
+  [6, 1],
+  [2, 0],
+  [0, 4],
+  [5, 8],
+  [4, 7],
+  [1, 3],
+  [3, 5],
+  [6, 5],
 ];
 
 const buildGraph = (edges) => {
@@ -20,10 +33,40 @@ const buildGraph = (edges) => {
 };
 const undirectedGraph = (edges, nodeA, nodeB) => {
   let graph = buildGraph(edges);
+  console.log(graph)
   return hasPath(graph, nodeA, nodeB, new Set());
 };
 
+
+
+const dfs = (graph, src, dst, visited) => {
+
+  let stack = [src]
+  visited.add(String(src))
+  while (stack.length > 0) {
+    let current = stack.pop()
+    if (!(visited.has(current))) {
+      visited.add(current)
+      if (current == dst) return true
+      for (let neighbor of graph[current]) {
+        {
+          stack.push(neighbor)
+
+        }
+
+      }
+    }
+  }
+  return false
+}
+
+
+
+
+
+
 const hasPath = (graph, src, dst, visited) => {
+  console.log(`${graph} : ${src} : ${dst}`)
   if (src === dst) return true;
   if (visited.has(src)) return false;
 
@@ -36,4 +79,4 @@ const hasPath = (graph, src, dst, visited) => {
 
   return false;
 };
-console.log(undirectedGraph(edges, "l", "j"));
+console.log(undirectedGraph(edges, "7", "5"));
